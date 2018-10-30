@@ -61,9 +61,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Biome.cs" />
+    <Compile Include="Assets\Scripts\Desert.cs" />
+    <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\IslandGenerator.cs" />
+    <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MeshGenerator.cs" />
+    <Compile Include="Assets\Scripts\Plains.cs" />
     <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
+    <Compile Include="Assets\Scripts\UnityTerrainGenerator.cs" />
+    <Compile Include="Assets\Scripts\Water.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Tiago Costa/Documents/AI-Terrain Generator/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

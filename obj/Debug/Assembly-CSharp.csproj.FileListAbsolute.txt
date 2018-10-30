@@ -167,3 +167,4 @@ C:\Users\Tiago Costa\Documents\AI-Terrain Generator\obj\Debug\Assembly-CSharp.cs
 C:\Users\Tiago Costa\Documents\AI-Terrain Generator\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Tiago Costa\Documents\AI-Terrain Generator\obj\Debug\Assembly-CSharp.dll
 C:\Users\Tiago Costa\Documents\AI-Terrain Generator\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Tiago Costa\Documents\AI-Terrain Generator\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

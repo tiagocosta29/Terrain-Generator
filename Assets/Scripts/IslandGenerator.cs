@@ -1,23 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Enums
-{
-    public enum MaskType
-    {
-        Square, 
-        Circle,
-        Diamond,
-        Oval,
-        Rectangule,
-        Test
-    }
-}
 public class IslandGenerator : MonoBehaviour {
 
     public int TerrainSize;
-
+    
     public float[,] TerrainMatrix;
 
     public bool CanDraw = false;
@@ -60,8 +47,8 @@ public class IslandGenerator : MonoBehaviour {
             {
                 float xCoord = xOrg + i / TerrainSize * scale;
                 float yCoord = yOrg + j / TerrainSize * scale;
-                TerrainMatrix[(int)i, (int)j] = Mathf.PerlinNoise(xCoord, yCoord) * Heightscale;
-                TerrainMatrix[(int)i, (int)j] *= Mathf.Sin(TerrainMatrix[(int)i, (int)j]);
+                TerrainMatrix[(int)i, (int)j] = Mathf.PerlinNoise(xCoord, yCoord);// * Heightscale;
+                //TerrainMatrix[(int)i, (int)j] *= Mathf.Sin(TerrainMatrix[(int)i, (int)j]);
                 //TerrainMatrix[(int)i, (int)j] *= Mathf.Cos(TerrainMatrix[(int)i, (int)j]);
 
                 //float y = (2 * Mathf.PI * i) / TerrainSize;
@@ -69,11 +56,9 @@ public class IslandGenerator : MonoBehaviour {
                 //float result = (x + y) / 2;
                 //TerrainMatrix[(int)i, (int)j] += result * 5;
             }
-        }
+        }        
 
-        
-
-        ApplyMask();
+     //   ApplyMask();
     }
 
     /// <summary>
