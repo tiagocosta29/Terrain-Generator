@@ -49,7 +49,11 @@ public class Map : MonoBehaviour {
     public int TerrainHeightScale;
     
     public float[,] TerrainMatrix;
-   // public UnityTerrainGenerator TerrainGeneartor;
+
+    /// <summary>
+    /// Placeholder for Unity chan character
+    /// </summary>
+    public GameObject UnityChan;
     
     /// <summary>
     /// Current Biome that is being built
@@ -67,7 +71,9 @@ public class Map : MonoBehaviour {
         else
         {
             DrawMapRandom();
-        }    }
+        }
+        UnityChan.transform.position = new Vector3(MapSize / 2, 4, MapSize / 2);
+    }
 
     /// <summary>
     /// Divides the map with even slices
@@ -150,7 +156,7 @@ public class Map : MonoBehaviour {
     {
         float waterScale = MapSize * 1.37f / 1024f;
         WaterObject.transform.localScale = new Vector3(waterScale, 1, waterScale);
-        WaterObject.transform.position = new Vector3(MapSize / 2, 2, MapSize / 2);
+        WaterObject.transform.position = new Vector3(MapSize / 2, 3, MapSize / 2);
     }
 
 

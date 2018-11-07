@@ -7,13 +7,16 @@ public class UnityTerrainGenerator : MonoBehaviour
     private GameObject terrainPrefab;
     private TerrainData terrainData;
     private Terrain terrain;
+    private TerrainCollider tCollider;
     private int terrainMaxHeight;
 
     public void Init()
     {
         terrainPrefab = new GameObject("Terrain");
         terrainPrefab.AddComponent<Terrain>();
+        terrainPrefab.AddComponent<TerrainCollider>();
         terrain = terrainPrefab.GetComponent<Terrain>();
+        tCollider = terrainPrefab.GetComponent<TerrainCollider>();
     }
 
     /// <summary>
@@ -28,10 +31,11 @@ public class UnityTerrainGenerator : MonoBehaviour
         terrainData = new TerrainData();
         terrain.terrainData = terrainData;
 
-        terrain.terrainData.heightmapResolution = terrainSize + 1;
-        terrain.terrainData.size = new Vector3(terrainSize, heightScale, terrainSize);
+        terrainData.heightmapResolution = terrainSize + 1;
+        terrainData.size = new Vector3(terrainSize, heightScale, terrainSize);
 
-        terrain.terrainData.SetHeights(0, 0, terrainMatrix);
+        terrainData.SetHeights(0, 0, terrainMatrix);
+        tCollider.terrainData = terrainData;
     }
 
     public void SetTextures(Texture2D[] textures)
