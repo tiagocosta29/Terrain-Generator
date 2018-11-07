@@ -1,17 +1,77 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Biome : MonoBehaviour
-{    
-    [Range(0.0f, 1.0f)]
-    public float TerrainMinHeight;
+{
+    /// <summary>
+    /// Biome name, used for debug purposes only
+    /// </summary>
+    public string BiomeName;
 
-    [Range(0.0f, 1.0f)]
-    public float TerrainMaxHeight;
-
+    /// <summary>
+    /// Minimum radius of the island
+    /// </summary>
     [Range(0f, 100f)]
-    public float TerrainRadius;
+    public float TerrainMinRadius;
 
+    /// <summary>
+    /// Maximum radius of the island
+    /// </summary>
+    [Range(0f, 100f)]
+    public float TerrainMaxRadius;
+
+    /// <summary>
+    /// Use this radius if you're using a diamond shape only, otherwize it will does nothing
+    /// </summary>
+    [Range(0f, 100f)]
+    public float DiamondRadius;
+    
+    /// <summary>
+    /// Reference to the TerrainGenerator Script
+    /// </summary>
+    public UnityTerrainGenerator TerrainGenerator;
+
+    /// <summary>
+    /// Gaussian blur for masking the terrain matrix
+    /// </summary>
     public Enums.MaskType TerrainMask;
+
+    /// <summary>
+    /// List of the terrain textures, atm must be 3, no more, no less
+    /// </summary>
+    public List<Texture2D> TerrainTextures;
+
+    /// <summary>
+    /// Biome matrix data
+    /// </summary>
+    public float[,] biomeMatrix;
+
+    #region perlin noise settings
+    
+    [Range(0.0f, 100.0f)]
+    public float MinXOrg = 0.0f;
+
+    [Range(0.0f, 100.0f)]
+    public float MaxXOrg = 0.0f;
+    
+    private float xOrg = 0.0f;
+
+    [Range(0.0f, 100.0f)]
+    public float MinYOrg = 0.0f;
+    
+    [Range(0.0f, 100.0f)]
+    public float MaxYOrg = 0.0f;
+    
+    private float yOrg = 0.0f;
+
+    [Range(0.0f, 100.0f)]
+    public float MinScale;
+
+    [Range(0.0f, 100.0f)]
+    public float MaxScale;
+    
+    private float scale;
+    #endregion
 
     /// <summary>
     /// Biome Size
@@ -19,14 +79,20 @@ public class Biome : MonoBehaviour
     private int terrainSize;
 
     /// <summary>
-    /// Starting point of X position in the Biome
+    /// Terrain radius after randomize
     /// </summary>
-    private int posX;
+    private float terrainRadius;
 
     /// <summary>
-    /// Starting point of Y position in the Biome
+    /// Randomizes vars
     /// </summary>
-    private int posY;
+    private void Init()
+    {
+        xOrg = Random.Range(MinXOrg, MaxXOrg);
+        yOrg = Random.Range(MinYOrg, MaxYOrg);
+        scale = Random.Range(MinScale, MaxScale);
+        terrainRadius = Random.Range(TerrainMinRadius, TerrainMaxRadius);
+    }
     
     /// <summary>
     /// Creates a new perlin noise map
@@ -35,33 +101,81 @@ public class Biome : MonoBehaviour
     /// <param name="positionX"></param>
     /// <param name="positionY"></param>
     /// <param name="terrainMatrix"></param>
-    public virtual float[,] BuildTerrain(int size, int positionX, int positionY, float[,] terrainMatrix)
+    public virtual float[,] BuildTerrain(int size, int positionX, int positionY, float[,] terrainMatrix, int heightScale)
     {
+        Init();
         terrainSize = size;
-        posX = positionX;
-        posY = positionY;
-        float xOrg = 0.0f;
-        float yOrg = 0.0f;
-        float xCoord = 0.0f;
-        float yCoord = 0.0f;
-
-        for (int i = positionX; i < posX + terrainSize; i++)
-        {
-            for (int j = 0; j < posY + terrainSize; j++)
-            {
-                while(terrainMatrix[i,j] > TerrainMaxHeight && terrainMatrix[i,j] < TerrainMinHeight)
-                {
-                    xCoord = xOrg + i / terrainMatrix.GetLength(0);
-                    yCoord = yOrg + j / terrainMatrix.GetLength(1);
-                    terrainMatrix[(int)i, (int)j] = Mathf.PerlinNoise(xCoord, yCoord);
-                }
-            }
-        }
+        biomeMatrix = PerlinNoise(size);
+        TerrainGenerator.SetData(biomeMatrix, heightScale, size, positionX, positionY);
+        TerrainGenerator.SetTextures(TerrainTextures.ToArray());
+    
         return terrainMatrix;
     }
 
-    public virtual void DrawTextures()
+    /// <summary>
+    /// Fills the whole map with perlin noise
+    /// </summary>
+    public float[,] PerlinNoise(int size)
     {
+        float[,] matrix = new float[size,size];
+        for (float i = 0; i < size; i++)
+        {
+            for (float j = 0; j < size; j++)
+            {
+                float xCoord = xOrg + i / size * scale;
+                float yCoord = yOrg + j / size * scale;
+                matrix[(int)i, (int)j] = Mathf.PerlinNoise(xCoord, yCoord);
 
+                matrix[(int)i, (int)j] *= Mathf.Sin(matrix[(int)i, (int)j]);
+                matrix[(int)i, (int)j] *= Mathf.Cos(matrix[(int)i, (int)j]);
+            }
+        }
+        return ApplyMask(size, matrix);
     }
+
+    /// <summary>
+    ///     Apply's the selected mask to the Terrain
+    /// </summary>
+    public float[,] ApplyMask(int size, float[,] matrix)
+    {
+        for (float i = 0; i < size; i++)
+        {
+            for (float j = 0; j < size; j++)
+            {
+                float distance_x = Mathf.Abs(i - size * 0.5f);
+                float distance_y = Mathf.Abs(j - size * 0.5f);
+                float distance = 0.0f;
+
+                switch (TerrainMask)
+                {
+                    case Enums.MaskType.Circle:
+                        distance = Mathf.Sqrt(distance_x * distance_x + distance_y * distance_y);
+                        break;
+                    case Enums.MaskType.Square:
+                        distance = Mathf.Max(distance_x, distance_y);
+                        break;
+                    case Enums.MaskType.Rectangule:
+                        distance = Mathf.Max(distance_x, distance_y / 2);
+                        break;
+                    case Enums.MaskType.Diamond:
+                        distance = distance_x + distance_y / DiamondRadius;
+                        break;
+                    case Enums.MaskType.Oval:
+                        distance = Mathf.Sqrt(distance_x * distance_x / 2 + distance_y * distance_y);
+                        break;
+                    case Enums.MaskType.Flat:
+                        matrix[(int)i, (int)j] = 0f;
+                        continue;
+                }
+
+                float max_width = size * 0.5f - terrainRadius;
+                float delta = distance / max_width;
+                float gradient = delta * delta;
+
+                matrix[(int)i, (int)j] *= Mathf.Max(0.0f, 1.0f - gradient);
+            }
+        }
+
+        return matrix;
+    }    
 }

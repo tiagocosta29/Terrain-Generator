@@ -2,12 +2,11 @@
 {
     public enum MaskType
     {
-        Square, 
-        Circle,
-        Diamond,
-        Oval,
-        Rectangule,
-        Flat,
-        Test
+        Flat = 0,
+        Square = 1, 
+        Circle = 2,
+        Diamond = 3,
+        Oval = 4,
+        Rectangule = 5,
     }   
 }

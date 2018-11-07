@@ -61,16 +61,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LowPolyWater_Pack\Scripts\LowPolyWater.cs" />
     <Compile Include="Assets\Scripts\Biome.cs" />
-    <Compile Include="Assets\Scripts\Desert.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
-    <Compile Include="Assets\Scripts\IslandGenerator.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
-    <Compile Include="Assets\Scripts\MeshGenerator.cs" />
-    <Compile Include="Assets\Scripts\Plains.cs" />
-    <Compile Include="Assets\Scripts\TerrainGenerator.cs" />
     <Compile Include="Assets\Scripts\UnityTerrainGenerator.cs" />
-    <Compile Include="Assets\Scripts\Water.cs" />
+    <None Include="Assets\LowPolyWater_Pack\Shaders\WaterShaded.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Tiago Costa/Documents/AI-Terrain Generator/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
@@ -317,12 +313,6 @@
     <Reference Include="Boo.Lang">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{FC9627DF-DBFB-812C-A4F5-CA056B718673}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

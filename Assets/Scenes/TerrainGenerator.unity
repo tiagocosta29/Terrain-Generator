@@ -121,6 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 43865646}
+  - component: {fileID: 43865648}
   - component: {fileID: 43865647}
   m_Layer: 0
   m_Name: Desert
@@ -150,16 +151,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 43865645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6630ad799d93e47428be99155b692bce, type: 3}
+  m_Script: {fileID: 11500000, guid: cb20b2aee45a2984cb7f54854693b46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainMinHeight: 0
-  TerrainMaxHeight: 1
-  TerrainRadius: 0
-  TerrainMask: 0
-  BaseTexture: {fileID: 0}
-  HighGroundTexture: {fileID: 0}
-  WaterTexture: {fileID: 0}
+  BiomeName: Desert
+  TerrainMinRadius: 14.4
+  TerrainMaxRadius: 47.8
+  DiamondRadius: 0
+  TerrainPrefab: {fileID: 0}
+  TerrainGenerator: {fileID: 43865648}
+  TerrainMask: 2
+  TerrainTextures:
+  - {fileID: 2800000, guid: d5f721d8a09819f4ab83ea6fdea25112, type: 3}
+  - {fileID: 2800000, guid: 1e5814011a527e641a9c58baf37a95a5, type: 3}
+  - {fileID: 2800000, guid: bb93f650b45b5c2408c93f04d6ae6816, type: 3}
+  MinXOrg: 3.5
+  MaxXOrg: 24.7
+  MinYOrg: 8.5
+  MaxYOrg: 22.5
+  MinScale: 3.9
+  MaxScale: 7.8
+--- !u!114 &43865648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 43865645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &527650201
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 527650202}
+  - component: {fileID: 527650204}
   - component: {fileID: 527650203}
   m_Layer: 0
   m_Name: Plains
@@ -197,88 +220,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 527650201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba17255147adee243b6b201e1a9efa7f, type: 3}
+  m_Script: {fileID: 11500000, guid: cb20b2aee45a2984cb7f54854693b46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainMinHeight: 0
-  TerrainMaxHeight: 0.5
-  TerrainRadius: 0
-  TerrainMask: 0
-  BaseTexture: {fileID: 0}
-  HighGroundTexture: {fileID: 0}
-  WaterTexture: {fileID: 0}
---- !u!1 &710863252
-GameObject:
+  BiomeName: Plains
+  TerrainMinRadius: 14.4
+  TerrainMaxRadius: 47.8
+  DiamondRadius: 0
+  TerrainPrefab: {fileID: 0}
+  TerrainGenerator: {fileID: 527650204}
+  TerrainMask: 1
+  TerrainTextures:
+  - {fileID: 2800000, guid: d5f721d8a09819f4ab83ea6fdea25112, type: 3}
+  - {fileID: 2800000, guid: 1e5814011a527e641a9c58baf37a95a5, type: 3}
+  - {fileID: 2800000, guid: bb93f650b45b5c2408c93f04d6ae6816, type: 3}
+  MinXOrg: 3.5
+  MaxXOrg: 24.7
+  MinYOrg: 8.5
+  MaxYOrg: 22.5
+  MinScale: 3.9
+  MaxScale: 7.8
+--- !u!114 &527650204
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 710863255}
-  - component: {fileID: 710863254}
-  - component: {fileID: 710863253}
-  m_Layer: 0
-  m_Name: Terrain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
-  m_IsActive: 1
---- !u!154 &710863253
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 710863252}
-  m_Material: {fileID: 0}
+  m_GameObject: {fileID: 527650201}
   m_Enabled: 1
-  m_TerrainData: {fileID: 0}
-  m_EnableTreeColliders: 0
---- !u!218 &710863254
-Terrain:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 710863252}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: aac61eca883e3ea459f538bdcc94d4eb, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMaximumLOD: 0
-  m_CastShadows: 1
-  m_DrawHeightmap: 1
-  m_DrawTreesAndFoliage: 1
-  m_ReflectionProbeUsage: 1
-  m_MaterialType: 0
-  m_LegacySpecular:
-    serializedVersion: 2
-    rgba: 4286545791
-  m_LegacyShininess: 0.078125
-  m_MaterialTemplate: {fileID: 0}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
-  m_ScaleInLightmap: 0.0512
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
---- !u!4 &710863255
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 710863252}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1333836565
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1333836566}
+  - component: {fileID: 1333836568}
   - component: {fileID: 1333836567}
   m_Layer: 0
   m_Name: Water
@@ -316,14 +289,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 1333836565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee84d174bdcc4a4e9cbea97a8958cb2, type: 3}
+  m_Script: {fileID: 11500000, guid: cb20b2aee45a2984cb7f54854693b46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainMinHeight: 0.01
-  TerrainMaxHeight: 0.02
-  TerrainRadius: 0
+  BiomeName: Water
+  TerrainMinRadius: 14.4
+  TerrainMaxRadius: 47.8
+  DiamondRadius: 0
+  TerrainPrefab: {fileID: 0}
+  TerrainGenerator: {fileID: 1333836568}
   TerrainMask: 0
-  BaseTexture: {fileID: 0}
+  TerrainTextures:
+  - {fileID: 2800000, guid: d5f721d8a09819f4ab83ea6fdea25112, type: 3}
+  - {fileID: 2800000, guid: 1e5814011a527e641a9c58baf37a95a5, type: 3}
+  - {fileID: 2800000, guid: bb93f650b45b5c2408c93f04d6ae6816, type: 3}
+  MinXOrg: 3.5
+  MaxXOrg: 24.7
+  MinYOrg: 8.5
+  MaxYOrg: 22.5
+  MinScale: 3.9
+  MaxScale: 7.8
+--- !u!114 &1333836568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1333836565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1616631838
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +345,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -507,7 +503,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2118670437}
   - component: {fileID: 2118670436}
-  - component: {fileID: 2118670438}
   m_Layer: 0
   m_Name: TerrainController
   m_TagString: Untagged
@@ -526,18 +521,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecc2ab0a9627524cb1611a9d0b1693e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapSize: 512
+  MapSize: 1024
   WaterChance: 70
-  DivisionCells: 1
+  DivisionCells: 4
   WaterBiome: {fileID: 1333836567}
   BiomeList:
   - {fileID: 43865647}
   - {fileID: 527650203}
-  TerrainHeightScale: 74
-  Scale: 17.5
-  TerrainGeneartor: {fileID: 2118670438}
-  xOrg: 15.6
-  yOrg: 1.2
+  MapBiomeList: []
+  TerrainHeightScale: 100
 --- !u!4 &2118670437
 Transform:
   m_ObjectHideFlags: 0
@@ -551,15 +543,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2118670438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2118670435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrain: {fileID: 710863254}
