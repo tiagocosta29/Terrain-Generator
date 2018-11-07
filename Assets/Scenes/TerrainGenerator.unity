@@ -586,6 +586,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1465204717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1465204718}
+  - component: {fileID: 1465204720}
+  - component: {fileID: 1465204719}
+  m_Layer: 0
+  m_Name: Cage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1465204718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1465204717}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1665572507}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1465204719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1465204717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb20b2aee45a2984cb7f54854693b46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BiomeName: Plains
+  TerrainMinRadius: 14.4
+  TerrainMaxRadius: 70
+  DiamondRadius: 0
+  TerrainGenerator: {fileID: 1465204720}
+  TerrainMask: 4
+  TerrainTextures:
+  - {fileID: 2800000, guid: 62c370417e7ff4e459c521c5d663dfa6, type: 3}
+  - {fileID: 2800000, guid: ee1f7cb3fdb94bf4787142c8253ddea5, type: 3}
+  - {fileID: 2800000, guid: 62925773088a31e4f806be84e0085cf4, type: 3}
+  MinXOrg: 3.5
+  MaxXOrg: 24.7
+  MinYOrg: 8.5
+  MaxYOrg: 22.5
+  MinScale: 12
+  MaxScale: 27
+--- !u!114 &1465204720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1465204717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1616631838
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +748,7 @@ Transform:
   - {fileID: 1333836566}
   - {fileID: 43865646}
   - {fileID: 527650202}
+  - {fileID: 1465204718}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -709,11 +778,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 45cea719aa1c2164db965a4a4525f343, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -795,6 +864,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1891897652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1891897644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3209f4a878fe0f14b8eb30b9088d0629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 1891897651}
+  AudioClips:
+  - {fileID: 8300000, guid: ee0be34359d2a8e4a8350eeb9aa843a0, type: 3}
+  - {fileID: 8300000, guid: 72606260003469e40af9ffff8a05a19b, type: 3}
+  - {fileID: 8300000, guid: 317cf783bf5c5b748bc76aff8751ec2d, type: 3}
+  - {fileID: 8300000, guid: 45cea719aa1c2164db965a4a4525f343, type: 3}
+  - {fileID: 8300000, guid: f298eba648f10154fb4907938f9fd16e, type: 3}
+  - {fileID: 8300000, guid: 6bf4c796a8eeddf48b1f4d4c68d5479b, type: 3}
 --- !u!1 &2118670435
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +918,7 @@ MonoBehaviour:
   BiomeList:
   - {fileID: 43865647}
   - {fileID: 527650203}
+  - {fileID: 1465204719}
   MapBiomeList: []
   WaterObject: {fileID: 901236072}
   TerrainHeightScale: 100
