@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,12 @@ public class Map : MonoBehaviour {
     /// Total Map size, 128, 254, 512 etc
     /// </summary>
     public int MapSize;
+
+    /// <summary>
+    /// Probability of map division occurring
+    /// </summary>
+    [Range(0, 1)]
+    public double DivisionChance;
 
     /// <summary>
     /// % of water in the map, use values from 0 to 100;
@@ -48,8 +55,6 @@ public class Map : MonoBehaviour {
     [Range(0, 1000)]
     public int TerrainHeightScale;
     
-    public float[,] TerrainMatrix;
-
     /// <summary>
     /// Placeholder for Unity chan character
     /// </summary>
@@ -60,18 +65,24 @@ public class Map : MonoBehaviour {
     /// </summary>
     private Biome currentBiome;
 
+    /// <summary>
+    /// Use this to change water chance during generation
+    /// </summary>
+    private int tempWaterChance;
+
     private void Start()
     {
-        TerrainMatrix = new float[MapSize, MapSize];
         MapBiomeList = new List<Biome>();
+        tempWaterChance = WaterChance;
         if (EvenDivision)
         {
             DrawMapEven();
         }
         else
         {
-            DrawMapRandom();
+            DrawMapRandomRecursive();
         }
+        SetWater();
         UnityChan.transform.position = new Vector3(MapSize / 2, 4, MapSize / 2);
     }
 
@@ -89,7 +100,7 @@ public class Map : MonoBehaviour {
             {
                 currentBiome = RandomBiome();
                 MapBiomeList.Add(currentBiome);
-                TerrainMatrix = currentBiome.BuildTerrain(terrainSize, xPos, yPos, TerrainMatrix, TerrainHeightScale);
+                currentBiome.BuildTerrain(terrainSize, xPos, yPos, TerrainHeightScale);
                 yPos += terrainSize;                
             }
             yPos = 0;
@@ -99,9 +110,11 @@ public class Map : MonoBehaviour {
         float waterScale = MapSize * 1.37f / 1024f;
         WaterObject.transform.localScale = new Vector3(waterScale, 1, waterScale);
         WaterObject.transform.position = new Vector3(MapSize / 2, 2, MapSize / 2);
-        //TerrainGeneartor.SetData(TerrainMatrix, TerrainHeightScale, MapSize);
     }
 
+    /// <summary>
+    /// Old division algorithm, not being used atm
+    /// </summary>
     public void DrawMapRandom()
     {
         int terrainSize = MapSize / 2;
@@ -118,7 +131,7 @@ public class Map : MonoBehaviour {
         {
             for (int j = 0; j < 2; j++)
             {
-                subdivided = rand.NextDouble() > 0.5 ? true : false;
+                subdivided = rand.NextDouble() > 0.7 ? true : false;
                 if (subdivided)
                 {
                     subXPos = xPos;
@@ -131,7 +144,7 @@ public class Map : MonoBehaviour {
                         {
                             currentBiome = RandomBiome();
                             MapBiomeList.Add(currentBiome);
-                            TerrainMatrix = currentBiome.BuildTerrain(subTerrainSize, subXPos, subYPos, TerrainMatrix, TerrainHeightScale);
+                            currentBiome.BuildTerrain(subTerrainSize, subXPos, subYPos, TerrainHeightScale);
                             subYPos += subTerrainSize;
                         }
                         subYPos = yPos;
@@ -142,7 +155,7 @@ public class Map : MonoBehaviour {
                 }
                 currentBiome = RandomBiome();
                 MapBiomeList.Add(currentBiome);
-                TerrainMatrix = currentBiome.BuildTerrain(terrainSize, xPos, yPos, TerrainMatrix, TerrainHeightScale);
+                currentBiome.BuildTerrain(terrainSize, xPos, yPos, TerrainHeightScale);
                 yPos += terrainSize;                
 
             }
@@ -150,8 +163,52 @@ public class Map : MonoBehaviour {
                 xPos += terrainSize;            
         }
         SetWater();
+    }    
+
+    /// <summary>
+    /// Recursive division algorithm
+    /// </summary>
+    /// <param name="x">Starting X position of the array</param>
+    /// <param name="y">Starting Y position of the array</param>
+    /// <param name="currentLevel">Current division deepness</param>
+    public void DrawMapRandomRecursive(int x = 0, int y = 0, int currentLevel = 1)
+    {
+        int level = currentLevel;
+        int terrainSize = MapSize / (int)(Math.Pow(2, currentLevel));
+        int xPos = x;
+        int yPos = y;
+        bool subdivided;
+        var rand = new System.Random();        
+
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                subdivided = rand.NextDouble() > DivisionChance ? true : false;
+                if (level >= DivisionCells)
+                {
+                    subdivided = false;
+                }
+
+                if (subdivided)
+                {
+                    DrawMapRandomRecursive(xPos, yPos, level + 1);
+                    yPos += terrainSize;
+                    continue;
+                }
+                currentBiome = RandomBiome();
+                MapBiomeList.Add(currentBiome);
+                currentBiome.BuildTerrain(terrainSize, xPos, yPos, TerrainHeightScale, (level == 1 ? 1 : level - 1));
+                yPos += terrainSize;
+            }
+            yPos = y;
+            xPos += terrainSize;
+        }        
     }
- 
+
+    /// <summary>
+    /// Scales the water object to the terrain scale
+    /// </summary>
     private void SetWater()
     {
         float waterScale = MapSize * 1.37f / 1024f;
@@ -166,14 +223,16 @@ public class Map : MonoBehaviour {
     /// <returns></returns>
     private Biome RandomBiome()
     {
-        var isLand = Random.Range(0, 100);
-        if(isLand > WaterChance)
+        var isLand = UnityEngine.Random.Range(0, 100);
+        if (isLand > tempWaterChance)
         {
-            var biomeIndex = Random.Range(0, BiomeList.Count);
+            tempWaterChance = WaterChance;
+            var biomeIndex = UnityEngine.Random.Range(0, BiomeList.Count);
             return BiomeList[biomeIndex];
         }
         else
         {
+            tempWaterChance -= 10;
             return WaterBiome;
         }        
     }    

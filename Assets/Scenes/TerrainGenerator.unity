@@ -15,16 +15,16 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+  m_FogColor: {r: 0.3529412, g: 0.8235294, b: 1, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0
+  m_FogDensity: 0.02
   m_LinearFogStart: 1
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.627451, g: 0.7058824, b: 0.7058824, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.5
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 7e4024464a7f63a408ac3c1225f094f9, type: 2}
   m_HaloStrength: 0.5
@@ -52,7 +52,7 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 10
@@ -308,6 +308,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: b76c71a1e3f6c4fdab657f4fbf5466de, type: 2}
+      propertyPath: m_Color.r
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: b76c71a1e3f6c4fdab657f4fbf5466de, type: 2}
+      propertyPath: m_Color.g
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: b76c71a1e3f6c4fdab657f4fbf5466de, type: 2}
+      propertyPath: m_Color.b
+      value: 0.7019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b76c71a1e3f6c4fdab657f4fbf5466de, type: 2}
   m_IsPrefabAsset: 0
@@ -379,6 +391,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &559232466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 559232467}
+  - component: {fileID: 559232469}
+  - component: {fileID: 559232468}
+  m_Layer: 0
+  m_Name: Snow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &559232467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 559232466}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1665572507}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &559232468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 559232466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb20b2aee45a2984cb7f54854693b46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BiomeName: Plains
+  TerrainMinRadius: 60
+  TerrainMaxRadius: 85
+  DiamondRadius: 0
+  TerrainGenerator: {fileID: 559232469}
+  TerrainMask: 5
+  TerrainTextures:
+  - {fileID: 2800000, guid: 39d0a6f0a91ffca4ca82e879697681e8, type: 3}
+  - {fileID: 2800000, guid: 34681e7143709c641811b539eedc320a, type: 3}
+  - {fileID: 2800000, guid: 39d0a6f0a91ffca4ca82e879697681e8, type: 3}
+  MinXOrg: 5.3
+  MaxXOrg: 23.5
+  MinYOrg: 6.7
+  MaxYOrg: 22.5
+  MinScale: 4
+  MaxScale: 6.5
+--- !u!114 &559232469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 559232466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &622748546 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100338, guid: 40046bae76ac54bffb59f14f47d9ba1b,
@@ -425,7 +505,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2000000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 2}
       propertyPath: m_HDR
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 2}
+      propertyPath: m_projectionMatrixMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 2}
+      propertyPath: field of view
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 2}
+      propertyPath: m_FocalLength
+      value: 15.638705
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 2}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 2}
+      propertyPath: m_AllowMSAA
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9200000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 2}
@@ -442,6 +542,7 @@ GameObject:
   - component: {fileID: 901236074}
   - component: {fileID: 901236073}
   - component: {fileID: 901236076}
+  - component: {fileID: 901236077}
   m_Layer: 0
   m_Name: ocean
   m_TagString: Untagged
@@ -518,6 +619,89 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: ebfb4988eb16add4784122504f75fe2f, type: 2}
+--- !u!114 &901236077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 901236072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6a6df342b52d24092cf6bbb590c535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveHeight: 0.5
+  waveFrequency: 0.5
+  waveLength: 0.75
+  waveOriginPosition: {x: 0, y: 0, z: 0}
+--- !u!1 &955254040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955254041}
+  - component: {fileID: 955254043}
+  - component: {fileID: 955254042}
+  m_Layer: 0
+  m_Name: SnowCircle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &955254041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955254040}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1665572507}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &955254042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955254040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb20b2aee45a2984cb7f54854693b46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BiomeName: Plains
+  TerrainMinRadius: 11.6
+  TerrainMaxRadius: 30
+  DiamondRadius: 0
+  TerrainGenerator: {fileID: 955254043}
+  TerrainMask: 2
+  TerrainTextures:
+  - {fileID: 2800000, guid: 39d0a6f0a91ffca4ca82e879697681e8, type: 3}
+  - {fileID: 2800000, guid: 34681e7143709c641811b539eedc320a, type: 3}
+  - {fileID: 2800000, guid: 39d0a6f0a91ffca4ca82e879697681e8, type: 3}
+  MinXOrg: 5.3
+  MaxXOrg: 23.5
+  MinYOrg: 6.7
+  MaxYOrg: 22.5
+  MinScale: 3
+  MaxScale: 5
+--- !u!114 &955254043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955254040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da85306b5af7dc4282fff24795e5d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1333836565
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,7 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BiomeName: Plains
   TerrainMinRadius: 14.4
-  TerrainMaxRadius: 70
+  TerrainMaxRadius: 30
   DiamondRadius: 0
   TerrainGenerator: {fileID: 1465204720}
   TerrainMask: 4
@@ -749,6 +933,8 @@ Transform:
   - {fileID: 43865646}
   - {fileID: 527650202}
   - {fileID: 1465204718}
+  - {fileID: 559232467}
+  - {fileID: 955254041}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -911,6 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapSize: 2048
+  DivisionChance: 0.5
   WaterChance: 70
   EvenDivision: 0
   DivisionCells: 4
@@ -919,9 +1106,11 @@ MonoBehaviour:
   - {fileID: 43865647}
   - {fileID: 527650203}
   - {fileID: 1465204719}
+  - {fileID: 559232468}
+  - {fileID: 955254042}
   MapBiomeList: []
   WaterObject: {fileID: 901236072}
-  TerrainHeightScale: 100
+  TerrainHeightScale: 125
   UnityChan: {fileID: 622748546}
 --- !u!4 &2118670437
 Transform:

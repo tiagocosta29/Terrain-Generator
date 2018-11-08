@@ -86,11 +86,12 @@ public class Biome : MonoBehaviour
     /// <summary>
     /// Randomizes vars
     /// </summary>
-    private void Init()
+    private void Init(int deepenessLevel)
     {
         xOrg = Random.Range(MinXOrg, MaxXOrg);
         yOrg = Random.Range(MinYOrg, MaxYOrg);
-        scale = Random.Range(MinScale, MaxScale);
+        
+        scale = Random.Range(MinScale / deepenessLevel, MaxScale / deepenessLevel);
         terrainRadius = Random.Range(TerrainMinRadius, TerrainMaxRadius);
     }
     
@@ -100,50 +101,47 @@ public class Biome : MonoBehaviour
     /// <param name="size"></param>
     /// <param name="positionX"></param>
     /// <param name="positionY"></param>
-    /// <param name="terrainMatrix"></param>
-    public virtual float[,] BuildTerrain(int size, int positionX, int positionY, float[,] terrainMatrix, int heightScale)
+    public virtual void BuildTerrain(int size, int positionX, int positionY, int heightScale, int deepenessLevel = 1)
     {
-        Init();
+        Init(deepenessLevel);
         terrainSize = size;
-        biomeMatrix = PerlinNoise(size);
+        biomeMatrix = PerlinNoise();
         TerrainGenerator.SetData(biomeMatrix, heightScale, size, positionX, positionY);
-        TerrainGenerator.SetTextures(TerrainTextures.ToArray());
-    
-        return terrainMatrix;
+        TerrainGenerator.SetTextures(TerrainTextures.ToArray());    
     }
 
     /// <summary>
     /// Fills the whole map with perlin noise
     /// </summary>
-    public float[,] PerlinNoise(int size)
+    public float[,] PerlinNoise()
     {
-        float[,] matrix = new float[size,size];
-        for (float i = 0; i < size; i++)
+        float[,] matrix = new float[terrainSize, terrainSize];
+        for (float i = 0; i < terrainSize; i++)
         {
-            for (float j = 0; j < size; j++)
+            for (float j = 0; j < terrainSize; j++)
             {
-                float xCoord = xOrg + i / size * scale;
-                float yCoord = yOrg + j / size * scale;
+                float xCoord = xOrg + i / terrainSize * scale;
+                float yCoord = yOrg + j / terrainSize * scale;
                 matrix[(int)i, (int)j] = Mathf.PerlinNoise(xCoord, yCoord);
 
                 matrix[(int)i, (int)j] *= Mathf.Sin(matrix[(int)i, (int)j]);
                 matrix[(int)i, (int)j] *= Mathf.Cos(matrix[(int)i, (int)j]);
             }
         }
-        return ApplyMask(size, matrix);
+        return ApplyMask(matrix);
     }
 
     /// <summary>
     ///     Apply's the selected mask to the Terrain
     /// </summary>
-    public float[,] ApplyMask(int size, float[,] matrix)
+    public float[,] ApplyMask(float[,] matrix)
     {
-        for (float i = 0; i < size; i++)
+        for (float i = 0; i < terrainSize; i++)
         {
-            for (float j = 0; j < size; j++)
+            for (float j = 0; j < terrainSize; j++)
             {
-                float distance_x = Mathf.Abs(i - size * 0.5f);
-                float distance_y = Mathf.Abs(j - size * 0.5f);
+                float distance_x = Mathf.Abs(i - terrainSize * 0.5f);
+                float distance_y = Mathf.Abs(j - terrainSize * 0.5f);
                 float distance = 0.0f;
 
                 switch (TerrainMask)
@@ -155,7 +153,7 @@ public class Biome : MonoBehaviour
                         distance = Mathf.Max(distance_x, distance_y);
                         break;
                     case Enums.MaskType.Rectangule:
-                        distance = Mathf.Max(distance_x, distance_y / 2);
+                        distance = Mathf.Max(distance_x, distance_y / 1.5f);
                         break;
                     case Enums.MaskType.Diamond:
                         distance = distance_x + distance_y / DiamondRadius;
@@ -168,7 +166,7 @@ public class Biome : MonoBehaviour
                         continue;
                 }
 
-                float max_width = size * 0.5f - terrainRadius;
+                float max_width = terrainSize * 0.5f - terrainRadius;
                 float delta = distance / max_width;
                 float gradient = delta * delta;
 

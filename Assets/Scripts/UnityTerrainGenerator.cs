@@ -30,6 +30,7 @@ public class UnityTerrainGenerator : MonoBehaviour
         terrainPrefab.transform.position = new Vector3(xpos, 0, ypos);
         terrainData = new TerrainData();
         terrain.terrainData = terrainData;
+        terrain.materialType = Terrain.MaterialType.BuiltInLegacyDiffuse;
 
         terrainData.heightmapResolution = terrainSize + 1;
         terrainData.size = new Vector3(terrainSize, heightScale, terrainSize);
@@ -47,7 +48,8 @@ public class UnityTerrainGenerator : MonoBehaviour
             terrainTextures.Add(new SplatPrototype());
             terrainTextures[i].texture = textures[i];
             terrainTextures[i].tileOffset = new Vector2(0, 0);
-            terrainTextures[i].tileSize = new Vector2(15, 15);
+            terrainTextures[i].tileSize = new Vector2(8, 8);
+            terrainTextures[i].smoothness = 1f;
             terrainTextures[i].texture.Apply();
         }
 
@@ -110,7 +112,7 @@ public class UnityTerrainGenerator : MonoBehaviour
                 }
             }
         }
-
+        
         // Finally assign the new splatmap to the terrainData:
         terrainData.SetAlphamaps(0, 0, splatmapData);
     }
